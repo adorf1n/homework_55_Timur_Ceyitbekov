@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Category>
+
+<h2>Список категорий</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@category.Id">Редактировать</a>
+                    <a asp-action="Delete" asp-route-id="@category.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Добавить категорию</a>

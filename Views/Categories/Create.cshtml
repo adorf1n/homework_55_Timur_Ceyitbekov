@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Создать категорию";
+}
+
+<h2>Создать категорию</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="name">Название категории</label>
+        <input type="text" id="name" name="name" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Назад к списку категорий</a>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}

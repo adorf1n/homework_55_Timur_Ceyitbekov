@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Brand>
+
+<h2>Список брендов</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var brand in Model)
+        {
+            <tr>
+                <td>@brand.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@brand.Id">Редактировать</a>
+                    <a asp-action="Delete" asp-route-id="@brand.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Добавить бренд</a>

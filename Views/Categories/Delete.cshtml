@@ -1,0 +1,11 @@
+﻿@model Category
+
+<h2>Удалить категорию</h2>
+
+<h4>Вы уверены, что хотите удалить категорию "@Model.Name"?</h4>
+
+<form asp-action="DeleteConfirmed">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a asp-action="Index" class="btn btn-secondary">Назад</a>
+</form>

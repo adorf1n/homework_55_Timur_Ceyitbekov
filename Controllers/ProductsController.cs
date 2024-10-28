@@ -11,11 +11,54 @@ public class ProductsController : Controller
         _context = context;
     }
 
-    public async Task<IActionResult> Index()
+    public IActionResult Index(string sortOrder)
     {
-        var products = await _context.Products.Include(p => p.Category).Include(p => p.Brand).ToListAsync();
-        return View(products);
+        ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+        ViewBag.BrandSortParm = sortOrder == "Brand" ? "brand_desc" : "Brand";
+        ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+        ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
+        ViewBag.CategorySortParm = sortOrder == "Category" ? "category_desc" : "Category";
+
+        var products = from p in _context.Products.Include(p => p.Brand).Include(p => p.Category)
+                       select p;
+
+        switch (sortOrder)
+        {
+            case "name_desc":
+                products = products.OrderByDescending(p => p.Name);
+                break;
+            case "Brand":
+                products = products.OrderBy(p => p.Brand.Name);
+                break;
+            case "brand_desc":
+                products = products.OrderByDescending(p => p.Brand.Name);
+                break;
+            case "Date":
+                products = products.OrderBy(p => p.CreatedAt);
+                break;
+            case "date_desc":
+                products = products.OrderByDescending(p => p.CreatedAt);
+                break;
+            case "Price":
+                products = products.OrderBy(p => p.Price);
+                break;
+            case "price_desc":
+                products = products.OrderByDescending(p => p.Price);
+                break;
+            case "Category":
+                products = products.OrderBy(p => p.Category.Name);
+                break;
+            case "category_desc":
+                products = products.OrderByDescending(p => p.Category.Name);
+                break;
+            default:
+                products = products.OrderBy(p => p.Name);
+                break;
+        }
+
+        return View(products.ToList());
     }
+
 
     public IActionResult Create()
     {

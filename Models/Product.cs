@@ -11,7 +11,7 @@ public class Product
 
     [Required(ErrorMessage = "Введите стоимость товара.")]
     [Range(50, double.MaxValue, ErrorMessage = "Стоимость товара должна быть не менее 50.")]
-    public decimal Price { get; set; }
+    public double Price { get; set; }
 
     public string? ImagePath { get; set; }
 

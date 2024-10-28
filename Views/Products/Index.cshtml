@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Product>
 
+<h2>Список товаров</h2>
+
 <p>
     <a asp-action="Create" class="btn btn-primary">Добавить новый товар</a>
 </p>
@@ -7,12 +9,21 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Название</th>
-            <th>Цена</th>
-            <th>Категория</th>
-            <th>Бренд</th>
-            <th>Дата добавления</th>
-            <th>Изображение</th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder=@ViewBag.NameSortParm>Название</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder=@ViewBag.BrandSortParm>Бренд</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder=@ViewBag.DateSortParm>Дата добавления</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder=@ViewBag.PriceSortParm>Цена</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder=@ViewBag.CategorySortParm>Категория</a>
+            </th>
             <th>Действия</th>
         </tr>
     </thead>
@@ -21,15 +32,12 @@
         {
             <tr>
                 <td>@product.Name</td>
+                <td>@product.Brand.Name</td>
+                <td>@product.CreatedAt.ToString("g")</td>
                 <td>@product.Price</td>
                 <td>@product.Category.Name</td>
-                <td>@product.Brand.Name</td>
-                <td>@product.CreatedAt</td>
                 <td>
-                    <img src="@product.ImagePath" alt="Изображение товара" style="width: 50px; height: auto;">
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Редактировать</a>
+                    <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning">Редактировать</a>
                     <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Удалить</a>
                 </td>
             </tr>
